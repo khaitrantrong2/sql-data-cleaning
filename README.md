@@ -7,7 +7,7 @@ This is an educational project on data cleaning and preparation using SQL. The o
 
 ##View data
 Use query below to view data:
-'''sql
+```sql
 SELECT * FROM club_member_info cmi
 LIMIT 5;
 '''
