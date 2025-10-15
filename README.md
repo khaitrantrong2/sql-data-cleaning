@@ -33,4 +33,4 @@ CREATE TABLE club_member_info_cleaned (
 	job_title VARCHAR(50),
 	membership_date NVARCHAR(50)
 );
-``
+```
