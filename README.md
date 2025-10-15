@@ -36,3 +36,9 @@ CREATE TABLE club_member_info_cleaned (
 	membership_date NVARCHAR(50)
 );
 ```
+Copy data to new table
+```sql
+INSERT INTO club_member_info_cleaned 
+SELECT * FROM club_member_info;
+```
+
