@@ -41,4 +41,35 @@ Copy data to new table
 INSERT INTO club_member_info_cleaned 
 SELECT * FROM club_member_info;
 ```
+3. Remove duplicate
+Use query below to review duplicate:
+```sql
+SELECT
+	full_name,
+	age,
+	martial_status,
+	email,
+	phone,
+	full_address,
+	job_title,
+	membership_date,
+	COUNT(*) AS count_duplicate
+FROM club_member_info_cleaned cmic
+GROUP BY
+	full_name,
+	age,
+	martial_status,
+	email,
+	phone,
+	full_address,
+	job_title,
+	membership_date
+HAVING COUNT(*)>1
+```
+
+Use query below to remove duplicate:
+```sql
+
+
+5. 
 
