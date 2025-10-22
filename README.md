@@ -69,7 +69,102 @@ HAVING COUNT(*)>1
 
 Use query below to remove duplicate:
 ```sql
+DELETE FROM club_member_info_cleaned
+WHERE(	
+	full_name
+	,age
+	,martial_status
+	,email
+	,phone
+	,full_address
+	,job_title
+	,membership_date
+)IN(SELECT
+		full_name
+		,age
+		,martial_status
+		,email
+		,phone
+		,full_address
+		,job_title
+		,membership_date
+	FROM club_member_info_cleaned cmic
+	GROUP BY
+		full_name,
+		age,
+		martial_status,
+		email,
+		phone,
+		full_address,
+		job_title,
+		membership_date
+	HAVING COUNT(*)>1
+)
+```
+4. Update full_name fields
+Remove unnecessary blankspace
+Use query below to review:
+```sql
+SELECT TRIM(full_name)
+FROM club_member_info_cleaned
+```
+Use query below to update:
+```sql
+UPDATE club_member_info_cleaned
+SET full_name = TRIM(full_name)
+```
+Make the name consitency
+Use query below to review:
+```sql
+SELECT UPPER(full_name)
+FROM club_member_info_cleaned
+```
+Use query below to update:
+```sql
+UPDATE club_member_info_cleaned
+SET full_name = UPPER(full_name)
+```
+Review null value
+Use query below to review:
+```sql
+SELECT full_name
+FROM club_member_info_cleaned
+WHERE full_name =''
+```
+No result found.
 
+5.Update age range
+Use query below to review:
+```sql
+SELECT age
+FROM club_member_info_cleaned
+WHERE age >100
+```
 
-5. 
+Use query below to update:
+```sql
+UPDATE club_member_info_cleaned
+SET age = (SELECT MODE(age) 
+FROM club_member_info_cleaned)
+WHERE age>100
+```
 
+6.Update martial status
+Use query below to check martial status
+```sql
+SELECT DISTINCT martial_status 
+FROM club_member_info_cleaned
+```
+Use query below to update martial status (blank)
+```sql
+UPDATE club_member_info_cleaned
+SET martial_status = 'Unknow'
+WHERE martial_status =''
+```
+
+Use query below to update martial status (spelling)
+```sql
+UPDATE club_member_info_cleaned
+SET martial_status = 'divorced'
+WHERE martial_status ='divored'
+```
